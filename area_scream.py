@@ -1,6 +1,6 @@
-import config
-from zipcode_api import ZipcodeApi
-from openai_api import OpenAi
+from modules import config
+from modules.zipcode_api import ZipcodeApi
+from modules.openai_api import OpenAi
 
 OPENAI_API_KEY = config.OPENAI_API_KEY
 GPT_MODEL = config.GPT_MODEL
