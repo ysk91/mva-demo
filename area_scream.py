@@ -22,10 +22,10 @@ gpt_responce = gpt.post(GPT_MODEL, prompt, 0.0)
 area = gpt.content(gpt_responce)
 
 if area == '1':
-    print('関東')
+    print('関東〜〜〜〜〜！！！')
 elif area == '2':
-    print('関西')
+    print('関西〜〜〜〜〜！！！')
 elif area == '3':
-    print('その他')
+    print('その他〜〜〜〜〜！！！')
 else:
     print('エラーが発生しました。')
