@@ -11,13 +11,10 @@ owner = "ysk91"
 repository = "mva-demo"
 repo = g.get_repo(f"{owner}/{repository}")
 
-def create_pr(head, title, body):
-    repo.create_pull(base="main", head=head, title=title, body=body)
-
-def create_new_branch(new_branch_name, repo=repo, base_branch_name="main"):
-    source = repo.get_branch(base_branch_name)
-
-    repo.create_git_ref(
-        ref=f"refs/heads/{new_branch_name}",
-        sha=source.commit.sha
+def create_issue(title, body):
+    issue = repo.create_issue(
+        title=title,
+        body=body
     )
+
+    print(f"Issue created: {issue.html_url}")
