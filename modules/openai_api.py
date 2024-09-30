@@ -1,4 +1,5 @@
 import requests
+import json
 from modules import config
 
 # https://platform.openai.com/docs/overview
@@ -19,9 +20,11 @@ def post(prompt, temperature=0.7):
                 {'role': 'user', 'content': prompt}
             ],
             "temperature": temperature,
+            "response_format": {"type": "json_object"}
         }
     )
     return response.json()
 
 def content(response):
-    return response['choices'][0]['message']['content']
+    content = response['choices'][0]['message']['content']
+    return json.loads(content) if content else None
