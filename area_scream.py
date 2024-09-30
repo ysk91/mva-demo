@@ -1,12 +1,10 @@
-from modules import config
-from modules.zipcode_api import ZipcodeApi
-from modules.openai_api import OpenAi
+import modules.zipcode_api
+import modules.openai_api
 
-OPENAI_API_KEY = config.OPENAI_API_KEY
-GPT_MODEL = config.GPT_MODEL
+zipcode = modules.zipcode_api
 
-zipcode_api = ZipcodeApi()
-address = zipcode_api.get().json()
+zcode = input('郵便番号を入力してください: ')
+address = zipcode.get(zcode).json()
 
 prompt = f"""
 {address}のエリアに応じて出力を変えてください。
@@ -17,8 +15,8 @@ prompt = f"""
 その他: 3
 """
 
-gpt = OpenAi(OPENAI_API_KEY)
-gpt_responce = gpt.post(GPT_MODEL, prompt, 0.0)
+gpt = modules.openai_api
+gpt_responce = gpt.post(prompt, temperature=0.0)
 area = gpt.content(gpt_responce)
 
 if area == '1':

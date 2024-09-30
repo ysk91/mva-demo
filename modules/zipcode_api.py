@@ -1,9 +1,7 @@
 import requests
 
-class ZipcodeApi:
+url = 'https://zipcloud.ibsnet.co.jp/api/search'
 
-    def get(self):
-        zipcode = input('Enter a zipcode: ')
-        url = 'https://zipcloud.ibsnet.co.jp/api/search'
-        payload = {'zipcode': zipcode}
-        return requests.get(url, payload)
+def get(zipcode):
+    payload = {'zipcode': zipcode}
+    return requests.get(url, payload)
