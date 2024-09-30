@@ -30,7 +30,7 @@ try:
     elif area == '2':
         print('関西〜〜〜〜〜！！！')
     elif area == '3':
-        print('その他〜〜〜〜〜！！！')
+        area / 0 # ゼロ除算エラーを発生させる
 except Exception as e:
     script_path = os.path.basename(__file__)
     rescue_issue.rescue_issue(e, script_path)
