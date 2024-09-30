@@ -2,7 +2,9 @@ import modules.github_api
 
 g = modules.github_api
 
-head = "feature/add_github-api"
+branch = 'feature/test'
+
+g.create_new_branch(branch)
 
 title = "Create PR"
 
@@ -16,4 +18,4 @@ This PR is test.
   - [ ] チェックなしリスト
 '''
 
-g.create_pr(head, title, body)
+g.create_pr(branch, title, body)
