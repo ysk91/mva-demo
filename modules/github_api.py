@@ -2,14 +2,12 @@ from modules import config
 from github import Github
 from github import Auth
 
-access_token = config.GITHUB_TOKEN
-auth = Auth.Token(access_token)
+ACCESS_TOKEN = config.GITHUB_TOKEN
+REPOSITORY_PATH = config.REPOSITORY_PATH
+auth = Auth.Token(ACCESS_TOKEN)
 
 g = Github(auth=auth)
-
-owner = "ysk91"
-repository = "mva-demo"
-repo = g.get_repo(f"{owner}/{repository}")
+repo = g.get_repo(REPOSITORY_PATH)
 
 def create_issue(title, body):
     issue = repo.create_issue(
