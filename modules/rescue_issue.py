@@ -44,7 +44,6 @@ comment: <<comment>>
 
     gpt_responce = gpt.post(prompt, temperature=0.7)
     body = gpt.content(gpt_responce)
-    print(gpt_responce) # debug
     issue_title = body['title']
     issue_body = body['comment']
 
