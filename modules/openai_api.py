@@ -33,7 +33,9 @@ def content(response):
 
 # Hack
 # OpenAI APIをJSONモードで使用しているため、プロンプト内でJSONで出力するように指示する必要がある。
-# {'error': {'message': "'messages' must contain the word 'json' in some form, to use 'response_format' of type 'json_object'.", 'type': 'invalid_request_error', 'param': 'messages', 'code': None}}
+# {'error': {'message': "'messages' must contain the word 'json' in some form,
+#  to use 'response_format' of type 'json_object'.",
+#  'type': 'invalid_request_error', 'param': 'messages', 'code': None}}
 # その際、出力形式でキーと値を指定する。
 # contentから任意の値を使用するには、取得したJSON形式の値に対してキーで抜き出す。
 # JSON内の値は文字列であることに注意する。
