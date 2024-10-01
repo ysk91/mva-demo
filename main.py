@@ -2,12 +2,12 @@ import os
 import modules.zipcode_api
 import modules.openai_api
 import modules.github_api
-import modules.rescue_issue
+import modules.issue
 
 zipcode = modules.zipcode_api
 gpt = modules.openai_api
 github = modules.github_api
-rescue_issue = modules.rescue_issue
+issue = modules.issue
 
 zcode = input('郵便番号を入力してください: ')
 address = zipcode.get(zcode).json()
@@ -36,4 +36,4 @@ try:
         area / 0 # ゼロ除算エラーを発生させる
 except Exception as e:
     script_path = os.path.basename(__file__)
-    rescue_issue.rescue_issue(e, script_path)
+    issue.rescue(e, script_path)

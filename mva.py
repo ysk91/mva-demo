@@ -1,10 +1,10 @@
 import modules.openai_api
 import modules.github_api
-import modules.rescue_issue
+import modules.issue
 
 gpt = modules.openai_api
 github = modules.github_api
-rescue_issue = modules.rescue_issue
+issue = modules.issue
 
 purpose = input("目的を入力してください: ")
 data = input("データを入力してください: ")
@@ -45,6 +45,6 @@ if result:
     is_record_issue = input("このコードをGitHub Issueに記録しますか？(y/n): ")
 
     if is_record_issue.upper() in ["Y", "YES"]:
-        rescue_issue.record_issue(purpose, python_code)
+        issue.record(purpose, python_code)
 else:
     print("処理に失敗しました。")

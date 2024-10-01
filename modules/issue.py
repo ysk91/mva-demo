@@ -5,7 +5,7 @@ import modules.github_api
 gpt = modules.openai_api
 github = modules.github_api
 
-def rescue_issue(e, script_path):
+def rescue(e, script_path):
     modules_list = subprocess.run(['ls', 'modules'], capture_output=True, text=True).stdout.splitlines()
 
     repository_contents = []
@@ -50,7 +50,7 @@ comment: <<comment>>
     github.create_issue(issue_title, issue_body)
 
 
-def record_issue(purpose, python_code):
+def record(purpose, python_code):
     issue_title = purpose
     issue_body = f"""
 ```python
