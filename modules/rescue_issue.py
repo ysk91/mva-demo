@@ -48,3 +48,14 @@ comment: <<comment>>
     issue_body = body['comment']
 
     github.create_issue(issue_title, issue_body)
+
+
+def record_issue(purpose, python_code):
+    issue_title = purpose
+    issue_body = f"""
+```python
+{python_code}
+```
+"""
+
+    github.create_issue(issue_title, issue_body)
