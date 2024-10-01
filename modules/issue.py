@@ -52,10 +52,14 @@ comment: <<comment>>
     github.create_issue(issue_title, issue_body)
 
 
-def record(purpose, python_code):
+def record(purpose, python_code, script_path=None):
     issue_title = purpose
     issue_body = f"""
 ```python
+## 対象スクリプト
+{script_path}
+
+## 実装コード
 {python_code}
 ```
 """
