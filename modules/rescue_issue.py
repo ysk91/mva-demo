@@ -8,9 +8,7 @@ github = modules.github_api
 
 def rescue_issue(e, script_path):
     modules_list = subprocess.run(
-        ['ls', 'modules'],
-        capture_output=True,
-        text=True
+        ["ls", "modules"], capture_output=True, text=True
     ).stdout.splitlines()
 
     repository_contents = []
@@ -50,7 +48,7 @@ comment: <<comment>>
 
     gpt_responce = gpt.post(prompt, temperature=0.7)
     body = gpt.content(gpt_responce)
-    issue_title = body['title']
-    issue_body = body['comment']
+    issue_title = body["title"]
+    issue_body = body["comment"]
 
     github.create_issue(issue_title, issue_body)

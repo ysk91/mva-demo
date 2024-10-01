@@ -11,10 +11,7 @@ repo = g.get_repo(REPOSITORY_PATH)
 
 
 def create_issue(title, body):
-    issue = repo.create_issue(
-        title=title,
-        body=body
-    )
+    issue = repo.create_issue(title=title, body=body)
 
     print(f"Issue created: {issue.html_url}")
 
@@ -22,7 +19,7 @@ def create_issue(title, body):
 def get_module_contents(path):
     try:
         file_content = repo.get_contents(f"modules/{path}")
-        decoded_content = file_content.decoded_content.decode('utf-8')
+        decoded_content = file_content.decoded_content.decode("utf-8")
         return {f"modules/{path}: {decoded_content}"}
     except Exception as e:
         if "Not Found" in str(e):
