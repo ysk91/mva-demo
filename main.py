@@ -9,7 +9,7 @@ gpt = modules.openai_api
 github = modules.github_api
 issue = modules.issue
 
-zcode = input('郵便番号を入力してください: ')
+zcode = input("郵便番号を入力してください: ")
 address = zipcode.get(zcode).json()
 
 prompt = f"""
@@ -29,11 +29,11 @@ area = int(gpt.content_for_json(gpt_responce)['area'])
 
 try:
     if area == 1:
-        print('関東〜〜〜〜〜！！！')
+        print("関東〜〜〜〜〜！！！")
     elif area == 2:
-        print('関西〜〜〜〜〜！！！')
+        print("関西〜〜〜〜〜！！！")
     elif area == 3:
-        area / 0 # ゼロ除算エラーを発生させる
+        area / 0  # ゼロ除算エラーを発生させる
 except Exception as e:
     script_path = os.path.basename(__file__)
     issue.rescue(e, script_path)
