@@ -2,12 +2,18 @@
 
 ## Description
 
-## Installation
+## 環境の準備
 
 ```
-# Install requests
-$ pip install requests
+# 仮想環境の作成
+$ python -m venv env
 
-# Install python-dotenv
-$ pip install python-dotenv
+# 仮想環境の有効化（macOS/Linux）
+$ source env/bin/activate
+
+# 仮想環境の有効化（Windows）
+$ .\env\Scripts\activate
+
+# 必要なパッケージのインストール
+$ pip install -r requirements.txt
 ```
