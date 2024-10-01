@@ -12,6 +12,7 @@ Deprecated==1.2.14
 flake8==7.1.1
 frozenlist==1.4.1
 idna==3.10
+isort==5.13.2
 mccabe==0.7.0
 multidict==6.1.0
 mypy-extensions==1.0.0
