@@ -5,14 +5,20 @@ import modules.github_api
 gpt = modules.openai_api
 github = modules.github_api
 
+
 def rescue_issue(e, script_path):
-    modules_list = subprocess.run(['ls', 'modules'], capture_output=True, text=True).stdout.splitlines()
+    modules_list = subprocess.run(
+        ['ls', 'modules'],
+        capture_output=True,
+        text=True
+    ).stdout.splitlines()
 
     repository_contents = []
     repository_contents.append(script_path)
     for module in modules_list:
         content = github.get_module_contents(module)
-        if content != None: repository_contents.append(content)
+        if content is not None:
+            repository_contents.append(content)
 
     prompt = f"""
 [命令]

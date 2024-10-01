@@ -7,6 +7,7 @@ from modules import config
 OPENAI_API_KEY = config.OPENAI_API_KEY
 GPT_MODEL = config.GPT_MODEL
 
+
 def post(prompt, temperature=0.7):
     response = requests.post(
         'https://api.openai.com/v1/chat/completions',
@@ -25,11 +26,12 @@ def post(prompt, temperature=0.7):
     )
     return response.json()
 
+
 def content(response):
     content = response['choices'][0]['message']['content']
     return json.loads(content) if content else None
 
-## Hack
+# Hack
 # OpenAI APIをJSONモードで使用しているため、プロンプト内でJSONで出力するように指示する必要がある。
 # {'error': {'message': "'messages' must contain the word 'json' in some form, to use 'response_format' of type 'json_object'.", 'type': 'invalid_request_error', 'param': 'messages', 'code': None}}
 # その際、出力形式でキーと値を指定する。

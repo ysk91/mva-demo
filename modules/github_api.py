@@ -9,6 +9,7 @@ auth = Auth.Token(ACCESS_TOKEN)
 g = Github(auth=auth)
 repo = g.get_repo(REPOSITORY_PATH)
 
+
 def create_issue(title, body):
     issue = repo.create_issue(
         title=title,
@@ -16,6 +17,7 @@ def create_issue(title, body):
     )
 
     print(f"Issue created: {issue.html_url}")
+
 
 def get_module_contents(path):
     try:
