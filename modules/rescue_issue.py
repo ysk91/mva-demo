@@ -42,8 +42,8 @@ comment: <<comment>>
 {repository_contents}
 """
 
-    gpt_responce = gpt.post(prompt, temperature=0.7)
-    body = gpt.content(gpt_responce)
+    gpt_responce = gpt.post(prompt, temperature=0.7, json=True)
+    body = gpt.content_for_json(gpt_responce)
     issue_title = body['title']
     issue_body = body['comment']
 
