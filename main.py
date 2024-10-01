@@ -25,7 +25,7 @@ area: <<area>>
 """
 
 gpt_responce = gpt.post(prompt, temperature=0.0, json=True)
-area = int(gpt.content_for_json(gpt_responce)['area'])
+area = int(gpt.content_for_json(gpt_responce)["area"])
 
 try:
     if area == 1:
