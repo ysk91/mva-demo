@@ -55,10 +55,10 @@ comment: <<comment>>
 def record(purpose, python_code, script_path=None):
     issue_title = purpose
     issue_body = f"""
-```python
 ## 対象スクリプト
 {script_path}
 
+```python
 ## 実装コード
 {python_code}
 ```
