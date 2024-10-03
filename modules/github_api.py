@@ -15,7 +15,7 @@ def get_file_contents(base_path, path):
         full_path = f"{base_path}/{path}" if base_path else path
         file_content = repo.get_contents(full_path)
         decoded_content = file_content.decoded_content.decode("utf-8")
-        return {f"{full_path}: {decoded_content}"}
+        return {full_path: decoded_content}
     except Exception as e:
         if "Not Found" in str(e):
             print(f"Skipping {full_path} (not found in repo)")

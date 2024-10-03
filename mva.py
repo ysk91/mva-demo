@@ -34,8 +34,8 @@ prompt = f"""
 処理を実行した結果を返り値として返すようにしてください。
 """
 
-gpt_responce = gpt.post(prompt, temperature=0.7, json=False)
-python_code = gpt.content(gpt_responce)
+gpt_response = gpt.post(prompt, temperature=0.7, json=False)
+python_code = gpt.content(gpt_response)
 
 print(python_code)
 
