@@ -1,3 +1,4 @@
+import os
 import modules.openai_api
 import modules.github_api
 import modules.issue
@@ -37,20 +38,24 @@ prompt = f"""
 gpt_response = gpt.post(prompt, temperature=0.7, json=False)
 python_code = gpt.content(gpt_response)
 
-print(python_code)
+try:
+    print(python_code)
 
-if script_path:
-    is_execute = input("このコードを実行しますか？(y/n): ")
+    if not script_path:
+        is_execute = input("このコードを実行しますか？(y/n): ")
 
-    if is_execute.upper() in ["Y", "YES"]:
-        exec_globals = {}
-        exec(python_code, exec_globals)
-        result = exec_globals.get("result", None)
-        print(result)
-    else:
-        print("処理を終了します。")
+        if is_execute.upper() in ["Y", "YES"]:
+            exec_globals = {}
+            exec(python_code, exec_globals)
+            result = exec_globals.get("result", None)
+            print(result)
+        else:
+            print("処理を終了します。")
 
-is_record_issue = input("このコードをGitHub Issueに記録しますか？(y/n): ")
+    is_record_issue = input("このコードをGitHub Issueに記録しますか？(y/n): ")
 
-if is_record_issue.upper() in ["Y", "YES"]:
-    issue.record(purpose, python_code, script_path)
+    if is_record_issue.upper() in ["Y", "YES"]:
+        issue.record(purpose, python_code, script_path)
+except Exception as e:
+    script_path = os.path.basename(__file__)
+    issue.rescue(e, script_path)
