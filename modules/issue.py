@@ -6,11 +6,10 @@ gpt = modules.openai_api
 github = modules.github_api
 
 
-def rescue_issue(e, script_path):
+def rescue(e, script_path):
     modules_list = subprocess.run(
         ["ls", "modules"], capture_output=True, text=True
     ).stdout.splitlines()
-
     repository_contents = []
     repository_contents.append(script_path)
     for module in modules_list:
@@ -46,9 +45,23 @@ comment: <<comment>>
 {repository_contents}
 """
 
-    gpt_responce = gpt.post(prompt, temperature=0.7)
-    body = gpt.content(gpt_responce)
+    gpt_response = gpt.post(prompt, temperature=0.7, json=True)
+    body = gpt.content_for_json(gpt_response)
     issue_title = body["title"]
     issue_body = body["comment"]
+    github.create_issue(issue_title, issue_body)
+
+
+def record(purpose, python_code, script_path=None):
+    issue_title = purpose
+    issue_body = f"""
+```python
+## 対象スクリプト
+{script_path}
+
+## 実装コード
+{python_code}
+```
+"""
 
     github.create_issue(issue_title, issue_body)
