@@ -1,39 +1,47 @@
 import os
-import modules.zipcode_api
 import modules.openai_api
 import modules.github_api
 import modules.issue
 
-zipcode = modules.zipcode_api
 gpt = modules.openai_api
 github = modules.github_api
 issue = modules.issue
 
-zcode = input("郵便番号を入力してください: ")
-address = zipcode.get(zcode).json()
+user_input = input("あなたの感情を表現する文を入力してください: ")
 
 prompt = f"""
-{address}のエリアに応じて<<area>>をjson形式で出力してください。
-ただし、<<area>>は必ず1文字の数字であること。
-エリア: <<area>> の対応表は以下です。
-関東: 1,
-関西: 2,
-その他: 3
+[ユーザーインプット]を感情分析して、喜怒哀楽のいずれかの感情に分類してください。
+分類した感情を<<emotion>>として出力してください。
+<<emotion>>は[<<emotion>>一覧]から1つだけ選んでください。
+出力形式はJSON形式で、項目は[出力項目]に従ってください。
+
+[ユーザーインプット]
+"{user_input}"
+
+[<<emotion>>一覧]
+- 喜: 嬉しい気持ち
+- 怒: 怒っている気持ち
+- 哀: 悲しい気持ち
+- 楽: 楽しんでいる気持ち
 
 [出力項目]
-area: <<area>>
+emotion: <<emotion>>
 """
 
 gpt_response = gpt.post(prompt, temperature=0.0, json=True)
-area = int(gpt.content_for_json(gpt_response)["area"])
+emotion = gpt.content_for_json(gpt_response)["emotion"]
 
 try:
-    if area == 1:
-        print("関東〜〜〜〜〜！！！")
-    elif area == 2:
-        print("関西〜〜〜〜〜！！！")
-    elif area == 3:
-        area / 0  # ゼロ除算エラーを発生させる
+    if emotion == "喜":
+        print("あなたは嬉しい気持ちですね！")
+    elif emotion == "怒":
+        print("あなたは怒っていますね！")
+    elif emotion == "哀":
+        print("あなたは悲しい気持ちですね。")
+    elif emotion == "楽":
+        print("あなたは楽しんでいますね！")
+    else:
+        print("感情が特定できませんでした。")
 except Exception as e:
     script_path = os.path.basename(__file__)
     issue.rescue(e, script_path)
