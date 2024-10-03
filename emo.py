@@ -23,6 +23,8 @@ prompt = f"""
 - 怒: 怒っている気持ち
 - 哀: 悲しい気持ち
 - 楽: 楽しんでいる気持ち
+- 不明: 感情が特定できない
+- ゼロ除算: ゼロ除算する指示が入力された
 
 [出力項目]
 emotion: <<emotion>>
@@ -40,6 +42,8 @@ try:
         print("あなたは悲しい気持ちですね。")
     elif emotion == "楽":
         print("あなたは楽しんでいますね！")
+    elif emotion == "ゼロ除算":
+        100 / 0
     else:
         print("感情が特定できませんでした。")
 except Exception as e:
