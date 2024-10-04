@@ -63,6 +63,7 @@ comment: <<comment>>
     issue_body = body["comment"]
     github.create_issue(issue_title, issue_body)
 
+
 def record(purpose, python_code, script_path=None):
     issue_title = purpose
     issue_body = f"""
