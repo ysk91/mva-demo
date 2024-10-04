@@ -8,9 +8,9 @@ OPENAI_API_KEY = config.OPENAI_API_KEY
 GPT_MODEL = config.GPT_MODEL
 
 
-def post(prompt, temperature=0.7, json=False):
+def post(prompt, model=GPT_MODEL, temperature=0.7, json=False):
     data = {
-        "model": GPT_MODEL,
+        "model": model,
         "messages": [{"role": "user", "content": prompt}],
         "temperature": temperature,
     }

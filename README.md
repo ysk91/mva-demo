@@ -15,7 +15,7 @@ $ cp .env.sample .env
 - OPENAI_API_KEY
   - https://platform.openai.com/settings/profile?tab=api-keys
 - GITHUB_TOKEN
-  -https://github.com/settings/tokens
+  - https://github.com/settings/tokens
 
 
 ### 必要なパッケージのインストール
