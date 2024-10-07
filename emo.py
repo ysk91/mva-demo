@@ -1,4 +1,3 @@
-import os
 import modules.openai_api as gpt
 import modules.issue as issue
 
