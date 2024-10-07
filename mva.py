@@ -1,4 +1,3 @@
-import os
 import modules.openai_api as gpt
 import modules.github_api as github
 import modules.issue as issue
@@ -53,5 +52,4 @@ try:
     if is_record_issue.upper() in ["Y", "YES"]:
         issue.record(purpose, python_code, script_path)
 except Exception as e:
-    script_path = os.path.basename(__file__)
-    issue.rescue(e, script_path)
+    issue.rescue(e)
