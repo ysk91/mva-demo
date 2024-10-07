@@ -1,9 +1,6 @@
 import subprocess
-import modules.openai_api
-import modules.github_api
-
-gpt = modules.openai_api
-github = modules.github_api
+import modules.openai_api as gpt
+import modules.github_api as github
 
 
 def rescue(e, script_path):

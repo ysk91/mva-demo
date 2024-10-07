@@ -1,11 +1,7 @@
 import os
-import modules.openai_api
-import modules.github_api
-import modules.issue
-
-gpt = modules.openai_api
-github = modules.github_api
-issue = modules.issue
+import modules.openai_api as gpt
+import modules.github_api as github
+import modules.issue as issue
 
 purpose = input("目的を入力してください: ")
 data = input("データを入力してください: ")
