@@ -1,4 +1,4 @@
-import subprocess
+import os
 import traceback
 import re
 from modules import config
@@ -11,12 +11,11 @@ REPOSITORY = config.REPOSITORY
 def rescue(e):
     traceback_details = traceback.format_tb(e.__traceback__)
     file_pattern = f'{REPOSITORY}/([^"]+)"'
-    script = re.search(file_pattern, traceback_details[0]).group(1)
-    error_script = github.get_file_contents(script)
+    script_match = re.search(file_pattern, traceback_details[0])
+    script = script_match.group(1) if script_match else None
+    error_script = github.get_file_contents(script) if script else None
 
-    modules_list = subprocess.run(
-        ["ls", "modules"], capture_output=True, text=True
-    ).stdout.splitlines()
+    modules_list = os.listdir("modules")
     modules_contents = []
     for module in modules_list:
         content = github.get_file_contents(module, "modules")
