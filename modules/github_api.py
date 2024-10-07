@@ -10,7 +10,7 @@ g = Github(auth=auth)
 repo = g.get_repo(REPOSITORY_PATH)
 
 
-def get_file_contents(base_path, path):
+def get_file_contents(path, base_path=None):
     try:
         full_path = f"{base_path}/{path}" if base_path else path
         file_content = repo.get_contents(full_path)
@@ -22,14 +22,6 @@ def get_file_contents(base_path, path):
         else:
             print(f"Error retrieving {full_path}: {e}")
         return None
-
-
-def get_contents(path):
-    return get_file_contents("", path)
-
-
-def get_module_contents(path):
-    return get_file_contents("modules", path)
 
 
 def create_issue(title, body):

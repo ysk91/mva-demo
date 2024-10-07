@@ -1,17 +1,12 @@
-import os
-import modules.openai_api
-import modules.github_api
-import modules.issue
-
-gpt = modules.openai_api
-github = modules.github_api
-issue = modules.issue
+import modules.openai_api as gpt
+import modules.github_api as github
+import modules.issue as issue
 
 purpose = input("目的を入力してください: ")
 data = input("データを入力してください: ")
 script_path = input("対象スクリプトのパスを入力してください: ")
 
-script = github.get_contents(script_path) if script_path else None
+script = github.get_file_contents(script_path) if script_path else None
 
 prompt = f"""
 [命令]
@@ -57,5 +52,4 @@ try:
     if is_record_issue.upper() in ["Y", "YES"]:
         issue.record(purpose, python_code, script_path)
 except Exception as e:
-    script_path = os.path.basename(__file__)
-    issue.rescue(e, script_path)
+    issue.rescue(e)

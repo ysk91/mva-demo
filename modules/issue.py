@@ -1,21 +1,26 @@
-import subprocess
-import modules.openai_api
-import modules.github_api
+import os
+import traceback
+import re
+from modules import config
+import modules.openai_api as gpt
+import modules.github_api as github
 
-gpt = modules.openai_api
-github = modules.github_api
+REPOSITORY = config.REPOSITORY
 
 
-def rescue(e, script_path):
-    modules_list = subprocess.run(
-        ["ls", "modules"], capture_output=True, text=True
-    ).stdout.splitlines()
-    repository_contents = []
-    repository_contents.append(script_path)
+def rescue(e):
+    traceback_details = traceback.format_tb(e.__traceback__)
+    file_pattern = f'{REPOSITORY}/([^"]+)"'
+    script_match = re.search(file_pattern, traceback_details[0])
+    script = script_match.group(1) if script_match else None
+    error_script = github.get_file_contents(script) if script else None
+
+    modules_list = os.listdir("modules")
+    modules_contents = []
     for module in modules_list:
-        content = github.get_module_contents(module)
+        content = github.get_file_contents(module, "modules")
         if content is not None:
-            repository_contents.append(content)
+            modules_contents.append(content)
 
     prompt = f"""
 [命令]
@@ -27,14 +32,14 @@ JSONに含める項目は[出力項目]の通りです。
 [<<comment>>の形式]
 ## 発生エラー
 ```
-{e}
+{traceback_details}
 ```
 (発生したエラーについて説明)
 
 ## 原因
 (エラーについて、発生箇所と原因を説明
-特に、本エラーは[モジュール]内の{script_path}を実行した際に発生したものです。
-このファイル内で、[エラー内容]が発生する箇所を特定しつつ、他のファイルが原因である可能性も考慮してください)
+特に、本エラーは[エラーが発生したスクリプト]を実行した際に発生したものです。
+このスクリプト内で、[エラー内容]が発生する箇所を特定しつつ、[モジュール]が原因である可能性も考慮してください)
 
 ## 改善策
 (エラーを解消するために、どのファイルに対してどのような修正を行うべきかを記述)
@@ -50,10 +55,13 @@ title: <<title>>
 comment: <<comment>>
 
 [エラー内容]
-{e}
+{f"{type(e).__name__}: {e}"}
+
+[エラーが発生したスクリプト]
+{error_script}
 
 [モジュール]
-{repository_contents}
+{modules_contents}
 """
 
     #  TODO modelをo1に変更したらうまくいくかもしれない

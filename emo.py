@@ -1,11 +1,5 @@
-import os
-import modules.openai_api
-import modules.github_api
-import modules.issue
-
-gpt = modules.openai_api
-github = modules.github_api
-issue = modules.issue
+import modules.openai_api as gpt
+import modules.issue as issue
 
 user_input = input("あなたの感情を表現する文を入力してください: ")
 
@@ -47,5 +41,4 @@ try:
     else:
         print("感情が特定できませんでした。")
 except Exception as e:
-    script_path = os.path.basename(__file__)
-    issue.rescue(e, script_path)
+    issue.rescue(e)
