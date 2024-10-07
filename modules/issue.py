@@ -12,14 +12,14 @@ def rescue(e):
     traceback_details = traceback.format_tb(e.__traceback__)
     file_pattern = f'{REPOSITORY}/([^"]+)"'
     script = re.search(file_pattern, traceback_details[0]).group(1)
-    error_script = github.get_contents(script)
+    error_script = github.get_file_contents(script)
 
     modules_list = subprocess.run(
         ["ls", "modules"], capture_output=True, text=True
     ).stdout.splitlines()
     modules_contents = []
     for module in modules_list:
-        content = github.get_module_contents(module)
+        content = github.get_file_contents(module, "modules")
         if content is not None:
             modules_contents.append(content)
 
@@ -70,10 +70,7 @@ comment: <<comment>>
     body = gpt.content_for_json(gpt_response)
     issue_title = body["title"]
     issue_body = body["comment"]
-    # github.create_issue(issue_title, issue_body)
-    print(issue_title) #  デバック用
-    print(issue_body) #  デバック用
-    print(script) #  デバック用
+    github.create_issue(issue_title, issue_body)
 
 
 def record(purpose, python_code, script_path=None):

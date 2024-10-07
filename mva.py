@@ -6,7 +6,7 @@ purpose = input("目的を入力してください: ")
 data = input("データを入力してください: ")
 script_path = input("対象スクリプトのパスを入力してください: ")
 
-script = github.get_contents(script_path) if script_path else None
+script = github.get_file_contents(script_path) if script_path else None
 
 prompt = f"""
 [命令]
