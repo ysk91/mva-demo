@@ -8,9 +8,10 @@ with open("foods.yml") as f:
     foods = yml.safe_load(f)
 
 input = input("食べ物の名前を入力してください: ")
-key = cf.is_japanese(input)
+is_japanese_food = cf.is_japanese(input)
 
-if key:
+#  OpenAI API資料料を削減するため、はじめにfoods.ymlに日本食のキーワードが含まれているかを確認する
+if is_japanese_food:
     print("入力された食べ物は日本食です。")
 else:
     response = cf.classify_food(input)
