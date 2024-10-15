@@ -1,4 +1,5 @@
 import yaml as yml
+import modules.openai_api as gpt
 
 with open("foods.yml") as f:
     foods = yml.safe_load(f)
@@ -19,4 +20,15 @@ countryは[出力値]からいずれかの値を取ります。
 country: <<country>>
 """
 
-print(input in foods['japanese'])
+if input in foods['japanese']:
+    print("入力された食べ物は日本食です。")
+elif input in foods['french']:
+    print("入力された食べ物はフレンチです。")
+else:
+    gpt_response = gpt.post(prompt, temperature=0.0, as_json=True)
+    country = gpt.content_for_json(gpt_response)["country"]
+    if country == "japanese":
+        print("入力された食べ物は日本食です。")
+    elif country == "french":
+        print("入力された食べ物はフレンチです。")
+

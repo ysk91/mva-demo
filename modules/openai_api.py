@@ -29,14 +29,11 @@ def post(prompt, model=GPT_MODEL, temperature=0.7, json=False):
     return response.json()
 
 
-def content_for_json(response):
+def content(response, as_json=False):
     content = response["choices"][0]["message"]["content"]
-    return json.loads(content) if content else None
-
-
-def content(response):
-    content = response["choices"][0]["message"]["content"]
-    return content if content else None
+    if content is None:
+        return None
+    return json.loads(content) if as_json else content
 
 
 # Hack

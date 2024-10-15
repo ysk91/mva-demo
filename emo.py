@@ -26,7 +26,7 @@ emotion: <<emotion>>
 
 try:
     gpt_response = gpt.post(prompt, temperature=0.0, json=True)
-    emotion = gpt.content_for_json(gpt_response)["emotion"]
+    emotion = gpt.content(gpt_response, as_json=True)["emotion"]
 
     if emotion == "喜":
         print("あなたは嬉しい気持ちですね！")

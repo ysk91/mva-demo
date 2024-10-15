@@ -66,7 +66,7 @@ comment: <<comment>>
 
     #  TODO modelをo1に変更したらうまくいくかもしれない
     gpt_response = gpt.post(prompt, temperature=0.7, json=True)
-    body = gpt.content_for_json(gpt_response)
+    body = gpt.content(gpt_response, as_json=True)
     issue_title = body["title"]
     issue_body = body["comment"]
     github.create_issue(issue_title, issue_body)
