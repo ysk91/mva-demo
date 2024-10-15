@@ -1,34 +1,22 @@
 import yaml as yml
 import modules.openai_api as gpt
+import modules.classification_foods as cf
 
 with open("foods.yml") as f:
     foods = yml.safe_load(f)
 
 input = input("食べ物の名前を入力してください: ")
+key = cf.is_japanese(input)
 
-prompt = f"""
-{input}がどこの国の料理かを判別し、<<country>>として出力します。
-出力は[出力形式]で示した通りのJSON形式で返します。
-countryは[出力値]からいずれかの値を取ります。
-
-[出力値]
-日本食: japanese
-フレンチ: french
-それ以外: other
-
-[出力形式]
-country: <<country>>
-"""
-
-if input in foods['japanese']:
+if key:
     print("入力された食べ物は日本食です。")
-elif input in foods['french']:
-    print("入力された食べ物はフレンチです。")
 else:
-    gpt_response = gpt.post(prompt, temperature=0.0, as_json=True)
-    country = gpt.content_for_json(gpt_response)["country"]
+    response = cf.classify_food(input)
+    country = gpt.content(response, as_json=True)["country"]
+    japanese_keyword = gpt.content(response, as_json=True)["japanese_keyword"]
     if country == "japanese":
         print("入力された食べ物は日本食です。")
-    elif country == "french":
-        print("入力された食べ物はフレンチです。")
+        cf.append_japanese_food(japanese_keyword)
+    else:
+        print("入力された食べ物は日本食ではありません。")
 
