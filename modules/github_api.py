@@ -44,15 +44,10 @@ local_repo = Repo(LOCAL_REPO_PATH)
 
 
 def commit_and_push_to_branch(branch_name, commit_message):
-    # ステージングする（全差分）
     local_repo.git.add(all=True)
-
-    # 差分を一時的にコミット
-    # これによりmainブランチ上の変更をそのままコミットに反映する
     local_repo.index.commit(commit_message)
 
-    # プッシュ時に特定のリモートブランチを指定
     origin = local_repo.remote(name="origin")
-    origin.push(f'HEAD:refs/heads/{branch_name}')  # これにより現在のHEADをリモートの特定ブランチにプッシュ
+    origin.push(f'HEAD:refs/heads/{branch_name}')
 
     print(f"Changes pushed to {branch_name}")
