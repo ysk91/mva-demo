@@ -39,18 +39,20 @@ def get_local_repo_path():
     except InvalidGitRepositoryError:
         raise Exception("The current working directory is not a valid Git repository.")
 
+LOCAL_REPO_PATH = get_local_repo_path()
+local_repo = Repo(LOCAL_REPO_PATH)
+
 
 def commit_and_push_to_branch(branch_name, commit_message):
-    LOCAL_REPO_PATH = get_local_repo_path()
-    repo = Repo(LOCAL_REPO_PATH)
+    # ステージングする（全差分）
+    local_repo.git.add(all=True)
 
-    repo.git.add(all=True)
-    repo.index.commit(commit_message)
-    repo.git.checkout(branch_name)
-    # repo.git.merge("main")
-    origin = repo.remote(name="origin")
-    origin.push(branch_name)
+    # 差分を一時的にコミット
+    # これによりmainブランチ上の変更をそのままコミットに反映する
+    local_repo.index.commit(commit_message)
+
+    # プッシュ時に特定のリモートブランチを指定
+    origin = local_repo.remote(name="origin")
+    origin.push(f'HEAD:refs/heads/{branch_name}')  # これにより現在のHEADをリモートの特定ブランチにプッシュ
 
     print(f"Changes pushed to {branch_name}")
-
-print(get_local_repo_path())
