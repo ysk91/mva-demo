@@ -11,6 +11,8 @@ cryptography==43.0.1
 Deprecated==1.2.14
 flake8==7.1.1
 frozenlist==1.4.1
+gitdb==4.0.11
+GitPython==3.1.43
 idna==3.10
 isort==5.13.2
 mccabe==0.7.0
@@ -28,6 +30,7 @@ PyNaCl==1.5.0
 python-dotenv==1.0.1
 PyYAML==6.0.2
 requests==2.32.3
+smmap==5.0.1
 tomli==2.0.1
 typing_extensions==4.12.2
 urllib3==2.2.3

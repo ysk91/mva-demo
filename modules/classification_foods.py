@@ -1,5 +1,8 @@
 import re as re
+
 import yaml as yml
+
+import modules.github_api as github
 import modules.openai_api as gpt
 
 with open("foods.yml") as f:

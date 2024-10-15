@@ -1,9 +1,10 @@
 import os
-import traceback
 import re
-from modules import config
-import modules.openai_api as gpt
+import traceback
+
 import modules.github_api as github
+import modules.openai_api as gpt
+from modules import config
 
 REPOSITORY = config.REPOSITORY
 

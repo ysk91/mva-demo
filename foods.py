@@ -1,6 +1,8 @@
 import yaml as yml
-import modules.openai_api as gpt
+
 import modules.classification_foods as cf
+import modules.github_api as github
+import modules.openai_api as gpt
 
 with open("foods.yml") as f:
     foods = yml.safe_load(f)
@@ -17,6 +19,9 @@ else:
     if country == "japanese":
         print("入力された食べ物は日本食です。")
         cf.append_japanese_food(japanese_keyword)
+        commit_message = f"Add {japanese_keyword} to foods.yml"
+        github.commit_and_push_to_branch(
+            "feature/add_japanese_food", commit_message
+        )
     else:
         print("入力された食べ物は日本食ではありません。")
-

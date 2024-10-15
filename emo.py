@@ -1,5 +1,5 @@
-import modules.openai_api as gpt
 import modules.issue as issue
+import modules.openai_api as gpt
 
 user_input = input("あなたの感情を表現する文を入力してください: ")
 

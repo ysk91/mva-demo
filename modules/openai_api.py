@@ -1,5 +1,7 @@
-import requests
 import json
+
+import requests
+
 from modules import config
 
 # https://platform.openai.com/docs/overview
