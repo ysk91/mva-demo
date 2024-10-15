@@ -46,4 +46,8 @@ output: "country": "japanese", "japanese_keyword": "寿司"
 food_name: "ピザ"
 output: "country": "other", "japanese_keyword": ""
 """
-    return gpt.post(prompt, temperature=0.0, json=True)
+    response = gpt.post(prompt, temperature=0.0, json=True)
+    response_content = gpt.content(response, as_json=True)
+    country = response_content["country"]
+    japanese_keyword = response_content["japanese_keyword"]
+    return [country, japanese_keyword]

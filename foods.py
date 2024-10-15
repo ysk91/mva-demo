@@ -15,15 +15,14 @@ if is_japanese_food:
     print("入力された食べ物は日本食です。")
 else:
     response = cf.classify_food(food_name)
-    response_content = gpt.content(response, as_json=True)
-    country = response_content["country"]
-    japanese_keyword = response_content["japanese_keyword"]
+    country = response[0]
+    japanese_keyword = response[1]
     if country == "japanese":
         print("入力された食べ物は日本食です。")
         cf.append_japanese_food(japanese_keyword)
         commit_message = f"Add {japanese_keyword} to foods.yml"
         github.commit_and_push_to_branch(
-            "feature/add_japanese_food", commit_message
+            "test/cf_test", commit_message
         )
     else:
         print("入力された食べ物は日本食ではありません。")
