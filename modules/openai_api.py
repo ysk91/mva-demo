@@ -33,7 +33,7 @@ def post(prompt, model=GPT_MODEL, temperature=0.7, json=False):
 
 def content(response, as_json=False):
     content = response["choices"][0]["message"]["content"]
-    if content is None:
+    if content is None or content == "":
         return None
     return json.loads(content) if as_json else content
 
