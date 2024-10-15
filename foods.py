@@ -23,7 +23,7 @@ else:
         cf.append_japanese_food(japanese_keyword)
         commit_message = f"Add {japanese_keyword} to foods.yml"
         github.commit_and_push_to_branch(
-            "feature/add_japanese_food", commit_message
+            "test/cf_test", commit_message
         )
     else:
         print("入力された食べ物は日本食ではありません。")
