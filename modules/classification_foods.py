@@ -18,10 +18,15 @@ def is_japanese(food):
 
 
 def append_food_list(country, food):
+    # checkoutしたあとの foods.yml を読み込む
+    with open("foods.yml") as f:
+        foods = yaml.safe_load(f)
+
     if food not in foods[country]:
         foods[country].append(food)
         with open("foods.yml", "w", encoding="utf-8") as f:
             yaml.dump(foods, f, allow_unicode=True)
+        return "appended"
 
 
 def classify_food(food_name):

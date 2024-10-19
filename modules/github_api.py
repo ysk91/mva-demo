@@ -46,15 +46,18 @@ LOCAL_REPO_PATH = get_local_repo_path()
 local_repo = Repo(LOCAL_REPO_PATH)
 
 
-def checkout(branch_name):
+def checkout_and_pull(branch_name):
     try:
         local_repo.remotes.origin.fetch()
         local_repo.git.checkout(branch_name)
+        local_repo.remotes.origin.pull(branch_name)
     except Exception as e:
-        print(f"Error checking out {branch_name}: {e}")
+        print(f"Error checking out and pulling {branch_name}: {e}")
 
 
 def commit_and_push_to_branch(branch_name, commit_message):
+    current_branch = local_repo.active_branch.name
+
     local_repo.git.add('foods.yml')
     local_repo.index.commit(commit_message)
 
@@ -62,3 +65,5 @@ def commit_and_push_to_branch(branch_name, commit_message):
     origin.push(f"HEAD:refs/heads/{branch_name}")
 
     print(f"Changes pushed to {branch_name}")
+
+    checkout_and_pull(current_branch)
