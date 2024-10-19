@@ -47,12 +47,15 @@ local_repo = Repo(LOCAL_REPO_PATH)
 
 
 def checkout(branch_name):
-    local_repo.remotes.origin.fetch()
-    local_repo.git.checkout(branch_name)
+    try:
+        local_repo.remotes.origin.fetch()
+        local_repo.git.checkout(branch_name)
+    except Exception as e:
+        print(f"Error checking out {branch_name}: {e}")
 
 
 def commit_and_push_to_branch(branch_name, commit_message):
-    local_repo.git.add(all=True)
+    local_repo.git.add('foods.yml')
     local_repo.index.commit(commit_message)
 
     origin = local_repo.remote(name="origin")

@@ -2,7 +2,6 @@ import yaml
 
 import modules.classification_foods as cf
 import modules.github_api as github
-import modules.openai_api as gpt
 
 with open("foods.yml") as f:
     foods = yaml.safe_load(f)
