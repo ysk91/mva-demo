@@ -43,6 +43,10 @@ LOCAL_REPO_PATH = get_local_repo_path()
 local_repo = Repo(LOCAL_REPO_PATH)
 
 
+def checkout(branch_name):
+    local_repo.remotes.origin.fetch()
+    local_repo.git.checkout(branch_name)
+
 def commit_and_push_to_branch(branch_name, commit_message):
     local_repo.git.add(all=True)
     local_repo.index.commit(commit_message)

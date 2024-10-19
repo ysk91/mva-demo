@@ -10,7 +10,7 @@ with open("foods.yml") as f:
 food_name = input("食べ物の名前を入力してください: ")
 is_japanese_food = cf.is_japanese(food_name)
 
-#  OpenAI API資料料を削減するため、はじめにfoods.ymlに日本食のキーワードが含まれているかを確認する
+#  OpenAI API使用料を削減するため、はじめにfoods.ymlに日本食のキーワードが含まれているかを確認する
 if is_japanese_food:
     print("入力された食べ物は日本食です。")
 else:
@@ -19,7 +19,8 @@ else:
     japanese_keyword = response[1]
     if country == "japanese":
         print("入力された食べ物は日本食です。")
-        cf.append_japanese_food(japanese_keyword)
+        github.checkout("test/cf_test")
+        cf.append_food_list(country, japanese_keyword)
         commit_message = f"Add {japanese_keyword} to foods.yml"
         github.commit_and_push_to_branch(
             "test/cf_test", commit_message

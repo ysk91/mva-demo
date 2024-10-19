@@ -17,9 +17,9 @@ def is_japanese(food):
     return False
 
 
-def append_japanese_food(food):
-    if food not in foods["japanese"]:
-        foods["japanese"].append(food)
+def append_food_list(country, food):
+    if food not in foods[country]:
+        foods[country].append(food)
         with open("foods.yml", "w", encoding="utf-8") as f:
             yaml.dump(foods, f, allow_unicode=True)
 
