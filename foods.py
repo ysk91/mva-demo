@@ -1,7 +1,6 @@
 import yaml
 
 import modules.classification_foods as cf
-import modules.github_api as github
 
 with open("foods.yml") as f:
     foods = yaml.safe_load(f)
@@ -18,11 +17,6 @@ else:
     japanese_keyword = response[1]
     if country == "japanese":
         print("入力された食べ物は日本食です。")
-        github.checkout("master/add_japanese_food")
-        cf.append_food_list(country, japanese_keyword)
-        commit_message = f"Add {japanese_keyword} to foods.yml"
-        github.commit_and_push_to_branch(
-            "master/add_japanese_food", commit_message
-        )
+        cf.push_to_master_list(country, japanese_keyword)
     else:
         print("入力された食べ物は日本食ではありません。")
