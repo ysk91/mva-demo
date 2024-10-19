@@ -1,6 +1,9 @@
+import os
+
+from git import InvalidGitRepositoryError, Repo
+from github import Auth, Github
+
 from modules import config
-from github import Github
-from github import Auth
 
 ACCESS_TOKEN = config.GITHUB_TOKEN
 REPOSITORY_PATH = config.REPOSITORY_PATH
@@ -27,3 +30,32 @@ def get_file_contents(path, base_path=None):
 def create_issue(title, body):
     issue = repo.create_issue(title=title, body=body)
     print(f"Issue created: {issue.html_url}")
+
+
+def get_local_repo_path():
+    try:
+        repo = Repo(os.getcwd(), search_parent_directories=True)
+        return repo.git.rev_parse("--show-toplevel")
+    except InvalidGitRepositoryError:
+        raise Exception(
+            "The current working directory is not a valid Git repository."
+        )
+
+
+LOCAL_REPO_PATH = get_local_repo_path()
+local_repo = Repo(LOCAL_REPO_PATH)
+
+
+def checkout(branch_name):
+    local_repo.remotes.origin.fetch()
+    local_repo.git.checkout(branch_name)
+
+
+def commit_and_push_to_branch(branch_name, commit_message):
+    local_repo.git.add(all=True)
+    local_repo.index.commit(commit_message)
+
+    origin = local_repo.remote(name="origin")
+    origin.push(f"HEAD:refs/heads/{branch_name}")
+
+    print(f"Changes pushed to {branch_name}")

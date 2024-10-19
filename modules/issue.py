@@ -1,9 +1,10 @@
 import os
-import traceback
 import re
-from modules import config
-import modules.openai_api as gpt
+import traceback
+
 import modules.github_api as github
+import modules.openai_api as gpt
+from modules import config
 
 REPOSITORY = config.REPOSITORY
 
@@ -66,9 +67,9 @@ comment: <<comment>>
 
     #  TODO modelをo1に変更したらうまくいくかもしれない
     gpt_response = gpt.post(prompt, temperature=0.7, json=True)
-    body = gpt.content_for_json(gpt_response)
-    issue_title = body["title"]
-    issue_body = body["comment"]
+    issue = gpt.content(gpt_response, as_json=True)
+    issue_title = issue["title"]
+    issue_body = issue["comment"]
     github.create_issue(issue_title, issue_body)
 
 
