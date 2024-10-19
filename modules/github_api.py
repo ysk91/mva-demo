@@ -37,7 +37,10 @@ def get_local_repo_path():
         repo = Repo(os.getcwd(), search_parent_directories=True)
         return repo.git.rev_parse("--show-toplevel")
     except InvalidGitRepositoryError:
-        raise Exception("The current working directory is not a valid Git repository.")
+        raise Exception(
+            "The current working directory is not a valid Git repository."
+        )
+
 
 LOCAL_REPO_PATH = get_local_repo_path()
 local_repo = Repo(LOCAL_REPO_PATH)
@@ -47,11 +50,12 @@ def checkout(branch_name):
     local_repo.remotes.origin.fetch()
     local_repo.git.checkout(branch_name)
 
+
 def commit_and_push_to_branch(branch_name, commit_message):
     local_repo.git.add(all=True)
     local_repo.index.commit(commit_message)
 
     origin = local_repo.remote(name="origin")
-    origin.push(f'HEAD:refs/heads/{branch_name}')
+    origin.push(f"HEAD:refs/heads/{branch_name}")
 
     print(f"Changes pushed to {branch_name}")
