@@ -58,7 +58,7 @@ def checkout_and_pull(branch_name):
 def commit_and_push_to_branch(branch_name, commit_message):
     current_branch = local_repo.active_branch.name
 
-    local_repo.git.add('foods.yml')
+    local_repo.git.add("foods.yml")
     local_repo.index.commit(commit_message)
 
     origin = local_repo.remote(name="origin")
