@@ -19,11 +19,11 @@ else:
     japanese_keyword = response[1]
     if country == "japanese":
         print("入力された食べ物は日本食です。")
-        github.checkout("test/cf_test")
+        github.checkout("master/add_japanese_food")
         cf.append_food_list(country, japanese_keyword)
         commit_message = f"Add {japanese_keyword} to foods.yml"
         github.commit_and_push_to_branch(
-            "test/cf_test", commit_message
+            "master/add_japanese_food", commit_message
         )
     else:
         print("入力された食べ物は日本食ではありません。")
