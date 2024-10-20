@@ -19,7 +19,7 @@ def is_japanese(food):
 
 
 def append_food_list(country, food):
-    # checkoutしたあとの foods.yml を読み込む
+    # checkoutしたあとのfoods.ymlを読み込む
     with open("foods.yml") as f:
         foods = yaml.safe_load(f)
 
@@ -62,10 +62,12 @@ output: "country": "other", "japanese_keyword": ""
 
 
 def push_to_master_list(country, japanese_keyword):
+    current_branch = github.get_current_branch()
     github.checkout_and_pull("master/add_japanese_food")
     appendance = append_food_list(country, japanese_keyword)
     if appendance:
         commit_message = f"Add {japanese_keyword} to foods.yml"
         github.commit_and_push_to_branch(
-            "master/add_japanese_food", commit_message
+            "master/add_japanese_food", commit_message, "foods.yml"
         )
+    github.checkout_and_pull(current_branch)
