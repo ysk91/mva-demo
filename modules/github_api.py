@@ -59,10 +59,11 @@ def checkout_and_pull(branch_name):
         print(f"Error checking out and pulling {branch_name}: {e}")
 
 
+#  指定したファイル以外に影響が出ないように、checkoutするファイルを指定
+#  TODO: この処理だと現在のブランチにから移動しないため、指定したブランチにpushできない
 def specific_file_checkout(branch_name, target_file):
     try:
         local_repo.remotes.origin.fetch()
-        #  指定したファイル以外に影響が出ないように、checkoutするファイルを指定
         local_repo.git.checkout(f'origin/{branch_name}', '--', target_file)
         print(f"Successfully checked out {target_file} from {branch_name}")
     except Exception as e:

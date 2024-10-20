@@ -63,7 +63,7 @@ output: "country": "other", "japanese_keyword": ""
 
 def push_to_master_list(country, japanese_keyword):
     current_branch = github.get_current_branch()
-    github.specific_file_checkout("master/add_japanese_food", "foods.yml")
+    github.checkout_and_pull("master/add_japanese_food")
     appendance = append_food_list(country, japanese_keyword)
     if appendance:
         commit_message = f"Add {japanese_keyword} to foods.yml"
